@@ -1,0 +1,87 @@
+/* vars */
+
+@link-color: #0078a0;
+@visited-color: #0078a0;
+@hover-color: #0078a0;
+
+@input-border-color: #b0b0b0;
+
+@common-line-height: 20px;
+@common-color: #222;
+
+@common-size: 14px;
+@small-size: 12px;
+
+@h1-size: 30px;
+@h2-size: 24px;
+@h3-size: 20px;
+@h4-size: 16px;
+@h5-size: 14px;
+@h6-size: 12px;
+@small-size: 12px;
+@medium-size: 12px;
+@large-size: 16px;
+
+@images: '../images/';
+@pie-path: "css/PIE.htc";
+
+/* fonts */
+@font-face {
+    font-family: 'pt_sansregular';
+    src: url('fonts/PTS55F-webfont.eot');
+    src: url('fonts/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/PTS55F-webfont.woff') format('woff'),
+         url('fonts/PTS55F-webfont.ttf') format('truetype'),
+         url('fonts/PTS55F-webfont.svg#pt_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansbold';
+    src: url('fonts/PTS75F-webfont.eot');
+    src: url('fonts/PTS75F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/PTS75F-webfont.woff') format('woff'),
+         url('fonts/PTS75F-webfont.ttf') format('truetype'),
+         url('fonts/PTS75F-webfont.svg#pt_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansitalic';
+    src: url('fonts/PTS56F-webfont.eot');
+    src: url('fonts/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/PTS56F-webfont.woff') format('woff'),
+         url('fonts/PTS56F-webfont.ttf') format('truetype'),
+         url('fonts/PTS56F-webfont.svg#pt_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@common-font: 'pt_sansregular';
+
+
+/* base */
+body { font-family: @common-font; font-size: @common-size; color: @common-color; }
+
+h1, .h1 { font-size: @h1-size; margin:0; font-weight: normal; }
+h2, .h2 { font-size: @h2-size; margin:0; font-weight: normal; }
+h3, .h3 { font-size: @h3-size; margin:0; font-weight: normal; }
+h4, .h4 { font-size: @h4-size; margin:0; font-weight: bold; }
+h5, .h5 { font-size: @h5-size; font-weight: normal; }
+h6, .h6 { font-size: @h6-size; font-weight: normal; }
+
+p { margin-bottom: 10px; color: @common-color; line-height: @common-line-height; }
+
+small { font-size: @small-size; }
+big { font-size: @large-size; }
+
+.article {
+  ul { margin: 0;
+    li { padding-left: 44px; background: url("../images/line.png") no-repeat scroll 20px 9px transparent; } 
+  }
+  li { line-height: @common-line-height; }
+}
+
+a { color: @link-color; text-decoration: underline; }
