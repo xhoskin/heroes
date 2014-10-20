@@ -1,7 +1,15 @@
-@import "mixins.less";
-@import "reset.less";
-@import "config.less";
+@import "bootstrap/bootstrap.less";
 
-.creature-table { margin-right: 10px; float: left;
-  td { padding: 0 5px; }
+.battlefield { .container;  }
+.your-side { .make-xs-column(6); .make-row(); }
+.creatures-list { .make-xs-column(4); .list-unstyled; }
+.your-creature { .make-xs-column(8); .make-row(); }
+
+//параметры существ
+.creature { display: none; }
+.creature-name { font-weight: bold; }
+.creature-stats { .list-unstyled; 
+  >li { .make-row(); }
 }
+.stat-label { .make-xs-column(4); font-weight: normal; color: @gray; }
+.stat-value { .make-xs-column(8); }

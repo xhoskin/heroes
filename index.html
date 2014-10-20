@@ -4,53 +4,76 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <title></title>
 </head>
 <body>
-  
-  <ul id="creatures-list"></ul>
 
-  <table id="your-creature">
-    <tr>
-      <td data-value="name" colspan="2"></td>
-    </tr>
-    <tr>
-      <td>Город</td>
-      <td data-value="city"></td>
-    </tr>
-    <tr>
-      <td>Уровень</td>
-      <td data-value="level"></td>
-    </tr>
-    <tr>
-      <td>Урон</td>
-      <td data-value="damage"></td>
-    </tr>
-    <tr>
-      <td>Атака</td>
-      <td data-value="attack"></td>
-    </tr>
-    <tr>
-      <td>Защита</td>
-      <td data-value="defense"></td>
-    </tr>
-    <tr>
-      <td>Здоровье</td>
-      <td data-value="health"></td>
-    </tr>
-    <tr>
-      <td>Скорость</td>
-      <td data-value="speed"></td>
-    </tr>
-    <tr>
-      <td>Прирост</td>
-      <td data-value="growth"></td>
-    </tr>
-    <tr>
-      <td>Цена</td>
-      <td data-value="price"></td>
-    </tr>
-  </table>
+<div class="navbar navbar-default navbar-static-top">
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Замок</a></li>
+      <li><a href="#">Оплот</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="../navbar/">Default</a></li>
+      <li class="active"><a href="./">Static top</a></li>
+      <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+    </ul>
+  </div><!--/.nav-collapse -->
+    </div>
+  
+  <div class="battlefield">
+
+    <div class="your-side">
+      
+      <ul id="creatures-list" class="creatures-list"></ul>
+
+      <div  id="your-creature" class="your-creature creature">
+        <header class="creature-name" >
+          <span data-value="name"></span>
+          <span class="creature-city"> (<span data-value="city"></span>) </span>
+        </header>
+        <ul class="creature-stats">
+          <li>
+            <div class="stat-label">Уровень</div>
+            <div class="stat-value" data-value="level"></div>
+          </li>
+          <li>
+            <div class="stat-label">Урон</div>
+            <div class="stat-value" data-value="damage"></div>
+          </li>
+          <li>
+            <div class="stat-label">Атака</div>
+            <div class="stat-value" data-value="attack"></div>
+          </li>
+          <li>
+            <div class="stat-label">Защита</div>
+            <div class="stat-value" data-value="defense"></div>
+          </li>
+          <li>
+            <div class="stat-label">Здоровье</div>
+            <div class="stat-value" data-value="health"></div>
+          </li>
+          <li>
+            <div class="stat-label">Скорость</div>
+            <div class="stat-value" data-value="speed"></div>
+          </li>
+          <li>
+            <div class="stat-label">Прирост</div>
+            <div class="stat-value" data-value="growth"></div>
+          </li>
+          <li>
+            <div class="stat-label">Цена</div>
+            <div class="stat-value" data-value="price"></div>
+          </li>
+        </ul>
+      </div>
+
+
+    </div> <!-- / your-side -->
+
+  </div> <!-- /battlefield -->
 
   <script src="js/script.js"></script>
 </body>
