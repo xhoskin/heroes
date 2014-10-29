@@ -1,4 +1,4 @@
-$(function(){ 
+(function(){ 
 
   //класс существа
   function Creature( name, level, city, damageMin, damageMax, attack, defense, health, speed, growth, price ) {
@@ -17,17 +17,21 @@ $(function(){
   }
 
   //города
-  var cities = function(){
-    var 
-      that = this,
-      add = function(name) {
-        that[name] = name;
-      };
-  };
+  var cities = {
+    list: [],
+    add: function(obj) {
+      this.list.push(obj);
+    }
+  }
 
-  cities.add('rampart')
+  function City( name, list ) {
+    //properties
+    this.name      = name,
+    this.list      = [];
+    cities.add( this );
+  }
 
-  /*
+
   //методы города
   City.prototype.print = function(){
     for (var i = 0; i < this.list.length; i++) {
@@ -40,7 +44,7 @@ $(function(){
            '</a></li>\n';
       $('#creatures-list').append(output);
       //events binding
-      $('#creatures-list a').on('click', function(this){
+      $('#creatures-list a').on('click', function(){
         var id = $(this).data('creature-id');
         console.log( this.list[id].print() );
       });
@@ -67,9 +71,6 @@ $(function(){
   castle  = new City("Замок");
   rampart = new City("Оплот");
 
-  console.log( castle );
-
-  //создание существ
   castle.addCreature( "Копейщик",           1,  1,  3,  4,  5,  10,  4, 14, 60  );
   castle.addCreature( "Алебардщик",         1,  2,  3,  6,  5,  10,  5, 14, 75  );
   castle.addCreature( "Арбалетчик",         2,  2,  3,  6,  3,  10,  4,  9, 100  );
@@ -101,6 +102,4 @@ $(function(){
 
   rampart.print();
 
-  */
-
-});
+})();
