@@ -36,27 +36,29 @@
       }
       //events binding
       $('.city-list a').on('click', function(){
-        var id = $(this).data('city');
-        cities.list[id].print();
+        var id   = $(this).data('city'),
+            army = $(this).parent().parent().data('army');
+        $(this).tab('show');
+        cities.list[id].print(army);
       });
     }
   }
 
   //методы города
-  City.prototype.print = function(){
+  City.prototype.print = function(army){
     var self = this;
-    $('#creatures-list').empty();
+    $('#' + army + '-creatures').empty();
     for (var i = 0; i < this.list.length; i++) {
       var value = this.list[i],
          output = 
            '<li><a href="#" data-creature="' + i +
            '" data-city="' + this.name + '">' + 
            value.name + '</a></li>\n';
-      $('#creatures-list').append(output);
+      $('#' + army + '-creatures').append(output);
       //events binding
-      $('#creatures-list a').on('click', function(){
-        var id = $(this).data('creature');
-        self.list[id].print();
+      $('#' + army + '-creatures a').on('click', function(){
+        var id   = $(this).data('creature');
+        self.list[id].print(army);
       });
 
     }
@@ -68,8 +70,8 @@
   }
 
   //методы существа
-  Creature.prototype.print = function(index) {
-    var table = $('#your-creature');
+  Creature.prototype.print = function(army) {
+    var table = $('#' + army + '-creature');
     table.show();
     for ( var key in this ) {
       $(table).find('[data-value="' + key + '"]').text( this[key] );
@@ -81,8 +83,15 @@
   };
 
   //создание городов
-  castle  = new City("Замок");
-  rampart = new City("Оплот");
+  castle     = new City("Замок");
+  rampart    = new City("Оплот");
+  necropolis = new City("Некрополис");
+  dungeon    = new City("Темница");
+  fortress   = new City("Крепость");
+  stronghold = new City("Цитадель ");
+  fortress   = new City("Крепость");
+  conflux    = new City("Сопряжение");
+  
 
   castle.addCreature( "Копейщик",           1, 1,  3,  4,  5,  10,  4,  14, 60,   ''  );
   castle.addCreature( "Алебардщик",         1, 2,  3,  6,  5,  10,  5,  14, 75,   ''  );
@@ -117,7 +126,4 @@
 
 $(function () {
   cities.print()
-
-  $('.city-list a:first-child').click();
-  $('.creatures-list a:first-child').click();
 });

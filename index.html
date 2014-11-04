@@ -9,61 +9,112 @@
 </head>
 <body>
 
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav city-list">
-      </ul>
-    </div>
-  </div>
+
   
   <div class="battlefield">
 
-    <div class="your-side">
-      
-      <ul id="creatures-list" class="creatures-list"></ul>
+    <div class="player-army army">
 
-      <div  id="your-creature" class="your-creature creature">
-        <header class="creature-name" >
-          <span data-value="name"></span>
-        </header>
-        <ul class="creature-stats">
-          <li>
-            <div class="stat-label">Уровень</div>
-            <div class="stat-value" data-value="level"></div>
-          </li>
-          <li>
-            <div class="stat-label">Урон</div>
-            <div class="stat-value" data-value="damage"></div>
-          </li>
-          <li>
-            <div class="stat-label">Атака</div>
-            <div class="stat-value" data-value="attack"></div>
-          </li>
-          <li>
-            <div class="stat-label">Защита</div>
-            <div class="stat-value" data-value="defense"></div>
-          </li>
-          <li>
-            <div class="stat-label">Здоровье</div>
-            <div class="stat-value" data-value="health"></div>
-          </li>
-          <li>
-            <div class="stat-label">Скорость</div>
-            <div class="stat-value" data-value="speed"></div>
-          </li>
-          <li>
-            <div class="stat-label">Прирост</div>
-            <div class="stat-value" data-value="growth"></div>
-          </li>
-          <li>
-            <div class="stat-label">Цена</div>
-            <div class="stat-value" data-value="price"></div>
-          </li>
-        </ul>
+      <ul id="player-cities" class="nav nav-tabs city-list" data-army="player">
+      </ul>
+
+      <ul id="player-creatures" class="creatures-list"></ul>
+
+      <div id="player-creature" class="player-creature creature">
+        <div class="row">
+          <header class="creature-name" >
+            <span data-value="name"></span>
+          </header>
+          <ul class="creature-stats">
+            <li>
+              <div class="stat-label">Уровень</div>
+              <div class="stat-value" data-value="level"></div>
+            </li>
+            <li>
+              <div class="stat-label">Урон</div>
+              <div class="stat-value" data-value="damage"></div>
+            </li>
+            <li>
+              <div class="stat-label">Атака</div>
+              <div class="stat-value" data-value="attack"></div>
+            </li>
+            <li>
+              <div class="stat-label">Защита</div>
+              <div class="stat-value" data-value="defense"></div>
+            </li>
+            <li>
+              <div class="stat-label">Здоровье</div>
+              <div class="stat-value" data-value="health"></div>
+            </li>
+            <li>
+              <div class="stat-label">Скорость</div>
+              <div class="stat-value" data-value="speed"></div>
+            </li>
+            <li>
+              <div class="stat-label">Прирост</div>
+              <div class="stat-value" data-value="growth"></div>
+            </li>
+            <li>
+              <div class="stat-label">Цена</div>
+              <div class="stat-value" data-value="price"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div> <!-- / player-army -->
+
+    <div class="enemy-army army">
+
+      <ul id="enemy-cities" class="nav nav-tabs city-list" data-army="enemy">
+      </ul>
+
+      <ul id="enemy-creatures" class="creatures-list"></ul>
+
+      <div id="enemy-creature" class="creature">
+        <div class="row">
+          <header class="creature-name" >
+            <span data-value="name"></span>
+          </header>
+          <ul class="creature-stats">
+            <li>
+              <div class="stat-label">Уровень</div>
+              <div class="stat-value" data-value="level"></div>
+            </li>
+            <li>
+              <div class="stat-label">Урон</div>
+              <div class="stat-value" data-value="damage"></div>
+            </li>
+            <li>
+              <div class="stat-label">Атака</div>
+              <div class="stat-value" data-value="attack"></div>
+            </li>
+            <li>
+              <div class="stat-label">Защита</div>
+              <div class="stat-value" data-value="defense"></div>
+            </li>
+            <li>
+              <div class="stat-label">Здоровье</div>
+              <div class="stat-value" data-value="health"></div>
+            </li>
+            <li>
+              <div class="stat-label">Скорость</div>
+              <div class="stat-value" data-value="speed"></div>
+            </li>
+            <li>
+              <div class="stat-label">Прирост</div>
+              <div class="stat-value" data-value="growth"></div>
+            </li>
+            <li>
+              <div class="stat-label">Цена</div>
+              <div class="stat-value" data-value="price"></div>
+            </li>
+          </ul>
+        </div>
       </div>
 
 
-    </div> <!-- / your-side -->
+    </div> <!-- / enemy-army -->
 
   </div> <!-- /battlefield -->
 

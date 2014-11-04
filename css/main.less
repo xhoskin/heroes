@@ -1,9 +1,11 @@
 @import "bootstrap/bootstrap.less";
 
-.battlefield { .container;  }
-.your-side { .make-xs-column(6); .make-row(); }
+@grid-pad: @grid-gutter-width / 2;
+
+.battlefield { .container; padding-top: @grid-pad;  }
+.army { .make-xs-column(6); }
 .creatures-list { .make-xs-column(4); .list-unstyled; }
-.your-creature { .make-xs-column(8); .make-row(); }
+.creature { .make-xs-column(8); }
 
 //параметры существ
 .creature { display: none; }
@@ -13,3 +15,10 @@
 }
 .stat-label { .make-xs-column(4); font-weight: normal; color: @gray; }
 .stat-value { .make-xs-column(8); }
+
+/*
+.enemy-army {
+  .creatures-list { .make-xs-column-pull(6); }
+  .creature { .make-xs-column-push(6); }
+}
+*/
