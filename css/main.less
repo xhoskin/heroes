@@ -2,7 +2,7 @@
 
 @grid-pad: @grid-gutter-width / 2;
 
-.battlefield { .container; padding-top: @grid-pad;  }
+.battlefield { padding: @grid-pad 0 0;  }
 .army { .make-xs-column(6); }
 .creatures-list { .make-xs-column(4); .list-unstyled; }
 .creature { .make-xs-column(8); }
@@ -18,7 +18,7 @@
 
 /*
 .enemy-army {
-  .creatures-list { .make-xs-column-pull(6); }
-  .creature { .make-xs-column-push(6); }
+  .creatures-list { .make-xs-column-push(6); }
+  .creature { .make-xs-column-pull(6); }
 }
 */
