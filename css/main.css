@@ -2972,6 +2972,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .navbar-header:after,
 .navbar-collapse:before,
 .navbar-collapse:after,
+.creature-name:before,
+.creature-name:after,
 .creature-stats > li:before,
 .creature-stats > li:after {
   content: " ";
@@ -2987,6 +2989,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .navbar:after,
 .navbar-header:after,
 .navbar-collapse:after,
+.creature-name:after,
 .creature-stats > li:after {
   clear: both;
 }
@@ -3240,33 +3243,27 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .army {
   position: relative;
   float: left;
-  width: 50%;
+  width: 41.66666667%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 .creatures-list {
-  position: relative;
-  float: left;
-  width: 33.33333333%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
   padding-left: 0;
   list-style: none;
+  padding-top: 15px;
 }
 .creature {
-  position: relative;
-  float: left;
-  width: 66.66666667%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-top: 15px;
 }
 .creature {
   display: none;
 }
 .creature-name {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.creature-name .stat-label {
   font-weight: bold;
 }
 .creature-stats {
@@ -3278,16 +3275,68 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   margin-right: -15px;
 }
 .stat-label {
+  font-weight: normal;
+  color: #555555;
+}
+.player-army .creatures-list {
+  position: relative;
+  float: left;
+  width: 58.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.player-army .creature {
+  position: relative;
+  float: left;
+  width: 41.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.player-army .stat-label {
+  position: relative;
+  float: left;
+  width: 58.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.player-army .stat-value {
+  position: relative;
+  float: left;
+  width: 41.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.enemy-army .creatures-list {
   position: relative;
   float: left;
   width: 33.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  font-weight: normal;
-  color: #555555;
+  left: 66.66666667%;
 }
-.stat-value {
+.enemy-army .creature {
+  position: relative;
+  float: left;
+  width: 66.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  right: 33.33333333%;
+}
+.enemy-army .stat-label {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.enemy-army .stat-value {
   position: relative;
   float: left;
   width: 66.66666667%;
@@ -3295,9 +3344,15 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding-left: 15px;
   padding-right: 15px;
 }
-/*
-.enemy-army {
-  .creatures-list { .make-xs-column-push(6); }
-  .creature { .make-xs-column-pull(6); }
+.calculation {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
 }
-*/
+.creature-number {
+  padding: 0 4px;
+}

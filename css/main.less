@@ -3,22 +3,37 @@
 @grid-pad: @grid-gutter-width / 2;
 
 .battlefield { padding: @grid-pad 0 0;  }
-.army { .make-xs-column(6); }
-.creatures-list { .make-xs-column(4); .list-unstyled; }
-.creature { .make-xs-column(8); }
+.army { .make-xs-column(5); }
+.creatures-list { .list-unstyled; padding-top: @grid-pad; }
+.creature { padding-top: @grid-pad; }
 
-//параметры существ
+// ** параметры существ
 .creature { display: none; }
-.creature-name { font-weight: bold; }
+.creature-name { .make-row(); 
+  .stat-label { font-weight: bold; }
+}
 .creature-stats { .list-unstyled; 
   >li { .make-row(); }
 }
-.stat-label { .make-xs-column(4); font-weight: normal; color: @gray; }
-.stat-value { .make-xs-column(8); }
+.stat-label { font-weight: normal; color: @gray; }
 
-/*
-.enemy-army {
-  .creatures-list { .make-xs-column-push(6); }
-  .creature { .make-xs-column-pull(6); }
+// ** различия в оформлении сторон
+.player-army { 
+  .creatures-list { .make-xs-column(7); }
+  .creature { .make-xs-column(5); }
+  .stat-label { .make-xs-column(7); }
+  .stat-value { .make-xs-column(5); }
 }
-*/
+
+.enemy-army {
+  .creatures-list { .make-xs-column(4); .make-xs-column-push(8); }
+  .creature { .make-xs-column(8); .make-xs-column-pull(4); }
+  .stat-label { .make-xs-column(4); }
+  .stat-value { .make-xs-column(8); }
+}
+
+// ** панель вычислений
+.calculation { .make-xs-column(2); text-align: center; }
+
+
+.creature-number { padding: 0 4px;  }
