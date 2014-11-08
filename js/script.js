@@ -59,7 +59,8 @@
            value.name + '</a></li>\n';
       $('#' + army + '-creatures').append(output);
       //events binding
-      $('#' + army + '-creatures a').on('click', function(){
+      $('#' + army + '-creatures a').on('click', function(e){
+        e.preventDefault();
         var id   = $(this).data('creature');
         self.list[id].print(army);
       });
@@ -74,7 +75,7 @@
 
   //методы существа
   Creature.prototype.print = function(army) {
-     var table = $('#' + army + '-creature'),
+    var table = $('#' + army + '-creature'),
         damage = this.damageMin + "-" + this.damageMax ;
     table.show();
     for ( var key in this ) {
@@ -92,6 +93,7 @@
     } else {
       defenser = this;
     }
+    printDamage();
   };
 
   //создание городов
@@ -119,6 +121,7 @@
   castle.addCreature( "Чемпион",            6, 20, 25, 16, 16, 100, 9,  2,  1200, ''  );
   castle.addCreature( "Ангел",              7, 50, 50, 20, 20, 200, 12, 1,  3000, '1 самоцвет' );
   castle.addCreature( "Архангел",           7, 50, 50, 30, 30, 250, 18, 1,  5000, '3 самоцвет' );
+  //castle.addCreature( "Архангел",           7, 50, 50, 30, 50, 250, 18, 1,  5000, '3 самоцвет' );
 
   rampart.addCreature( "Капитан кентавров", 1, 2,  3,  6,  3,  10,  8,  14, 90,   '' );
   rampart.addCreature( "Гном",              2, 2,  4,  6,  7,  20,  3,  8,  120,  '' );
@@ -134,24 +137,61 @@
   rampart.addCreature( "Зелёный дракон",    7, 40, 50, 18, 18, 180, 10, 1,  2400, '1 кристалл' );
   rampart.addCreature( "Золотой дракон",    7, 40, 50, 27, 27, 250, 16, 1,  4000, '2 кристалл' );
 
-  var calculateDamage = function(){
-    var oursNum   = $('#player-creature-number').val(),
-        theirsNum = $('#enemy-creature-number').val(),
-        modDmg    = ( attacker.attack - defenser.defense ) * 0.05; 
-    if ( attacker.damageMin === attacker.damageMax ) {
-        var baseDmg  = attacker.damageMin * oursNum,
-            sumDmg   = Math.round(attacker.damageMin * oursNum * modDmg * baseDmg) + baseDmg;
-    } else {
-        var baseDmg  = {
-              min:   Math.round(attacker.damageMin * oursNum * modDmg * baseDmg) + baseDmg,
-              max:   Math.round(attacker.damageMax * oursNum * modDmg * baseDmg) + baseDmg
-            },
-            sumDmg = baseDmg.min + '-' + baseDmg.max;
-    }
-    $('#calculated-damage').html( baseDmg );
+  var calculateDamage = function( baseDmg ){
+    var 
+        // количество атакующих существ
+        oursNum   = $('#player-creature-number').val(),    
+        // количество защищающихся существ
+        theirsNum = $('#enemy-creature-number').val();
+    
+        // baseDmg -  базовый урон существа
+                 
+        // условный множитель урона 
+        // зависит от того, больше или меньше атака и защита
+        if ( attacker.attack >= defenser.defense ) {
+            var multDmg = 0.05;
+        } else {
+            var multDmg = 0.025;
+        }
+        
+        // модификатор урона
+        // если атака больше, то за каждую единицу +5% урона
+        // если защита больше, то за каждую единицу +2,5% урона
+        // МD(баз) = (Атака - Защита) * 0,05  
+        // MD(баз) = (Атака - Защита) * 0,025 
+        var modDmg = ( attacker.attack - defenser.defense ) * multDmg;
+        
+        // допустимый промежуток для модификатора: -70%-300% урона
+        if ( modDmg > 3 ) { 
+            modDmg = 3;
+        } else if ( modDmg < -0.7 ) { 
+            modDmg = -0.7;
+        }
+        
+        // урон с учетом модификатора
+        var modifiedDmg = modDmg * baseDmg;
+        
+        // итоговая формула урона
+        var totalDmg = (modifiedDmg + baseDmg) * oursNum;
+        var totalDmgRounded = Math.round( (modifiedDmg + baseDmg) * oursNum );
+
+        return {
+            baseDmg:  baseDmg * oursNum,
+            modDmg:   ( modDmg * 100 ) + '%',
+            totalDmg: totalDmg
+        }
+
   }
 
-  $('#player-creature-number').on('input', calculateDamage);
+  var printDamage = function() {
+    var min = calculateDamage(attacker.damageMin)
+        max  = calculateDamage(attacker.damageMax)
+    $('#calc-damage-base').html( min.baseDmg + '-' + max.baseDmg );
+    $('#calc-damage-mod').html( min.modDmg );
+    $('#calc-damage-total').html( min.totalDmg + '-' + max.totalDmg );
+  }
+
+  $('#player-creature-number').on('input', printDamage);
 
 
 
@@ -160,10 +200,12 @@
 $(function () {
   cities.print()
   $('#player-cities>li:nth(0)>a').click();
-  $('#player-creatures>li:nth(1)>a').click();
+  $('#player-creatures>li:nth(0)>a').click();
   $('#player-creature-number').val(1);
 
   $('#enemy-cities>li:nth(0)>a').click();
-  $('#enemy-creatures>li:nth(2)>a').click();
+  $('#enemy-creatures>li:nth(13)>a').click();
   $('#enemy-creature-number').val(2);
+
+  printDamage();
 });

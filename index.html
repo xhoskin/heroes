@@ -6,6 +6,11 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <title></title>
+  <style>
+    .creature-stats .unimportant { display: none; }
+    .calc-group { margin-bottom: 10px; }
+    .calc-value { font-weight: bold; }
+  </style>
 </head>
 <body>
 
@@ -26,7 +31,7 @@
           <span class="stat-value"><input id="player-creature-number" class="creature-number form-control" type="number" name=""></span>
         </header>
         <ul class="creature-stats">
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Уровень</div>
           <div class="stat-value" data-value="level"></div>
           </li>
@@ -46,15 +51,15 @@
           <div class="stat-label">Здоровье</div>
           <div class="stat-value" data-value="health"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Скорость</div>
           <div class="stat-value" data-value="speed"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Прирост</div>
           <div class="stat-value" data-value="growth"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Цена</div>
           <div class="stat-value" data-value="price"></div>
           </li>
@@ -65,7 +70,21 @@
 
     <div class="calculation">
       <h3>Вычисления</h3>
-      <div id="calculated-damage"></div>
+      
+        <div class="calc-group">
+          Базовый
+          <div class="calc-value" id="calc-damage-base"></div>
+        </div>
+
+        <div class="calc-group">
+          Модификатор
+          <div class="calc-value" id="calc-damage-mod"></div>
+        </div>
+
+        <div class="calc-group">
+          Полный
+          <div class="calc-value" id="calc-damage-total"></div>
+        </div>
     </div>
 
     <div class="enemy-army army">
@@ -81,7 +100,7 @@
           <span class="stat-value"><input id="enemy-creature-number" class="creature-number form-control" type="number" name=""></span>
         </header>
         <ul class="creature-stats">
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Уровень</div>
           <div class="stat-value" data-value="level"></div>
           </li>
@@ -101,15 +120,15 @@
           <div class="stat-label">Здоровье</div>
           <div class="stat-value" data-value="health"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Скорость</div>
           <div class="stat-value" data-value="speed"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Прирост</div>
           <div class="stat-value" data-value="growth"></div>
           </li>
-          <li>
+          <li class="unimportant">
           <div class="stat-label">Цена</div>
           <div class="stat-value" data-value="price"></div>
           </li>
