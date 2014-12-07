@@ -175,7 +175,7 @@ var calculateDamage = function( baseDmg ){
 
       return {
           baseDmg:  baseDmg * oursNum,
-          modDmg:   ( modDmg * 100 ) + '%',
+          modDmg:   ( modDmg * 100 ),
           totalDmg: totalDmg
       }
 
@@ -185,8 +185,8 @@ var printDamage = function() {
   var min = calculateDamage(attacker.damageMin)
       max  = calculateDamage(attacker.damageMax)
   $('#calc-damage-base').html( min.baseDmg + '-' + max.baseDmg );
-  $('#calc-damage-mod').html( min.modDmg );
-  $('#calc-damage-total').html( min.totalDmg + '-' + max.totalDmg );
+  $('#calc-damage-mod').html( Math.round(min.modDmg) + '%' );
+  $('#calc-damage-total').html( Math.round(min.totalDmg) + '-' + Math.round(max.totalDmg) );
 }
 
 $('#player-creature-number').on('input', printDamage);
