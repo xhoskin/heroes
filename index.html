@@ -10,6 +10,7 @@
     .creature-stats .unimportant { display: none; }
     .calc-group { margin-bottom: 10px; }
     .calc-value { font-weight: bold; }
+    .calc-value small { font-size: 1em; font-weight: normal; }
   </style>
 </head>
 <body>
@@ -77,13 +78,11 @@
         </div>
 
         <div class="calc-group">
-          Модификатор
-          <div class="calc-value" id="calc-damage-mod"></div>
-        </div>
-
-        <div class="calc-group">
           Полный
-          <div class="calc-value" id="calc-damage-total"></div>
+          <div class="calc-value">
+            <span id="calc-damage-total"></span>
+              <small>(<span id="calc-damage-mod"></span>)</small>
+          </div>
         </div>
     </div>
 
@@ -134,7 +133,6 @@
           </li>
         </ul>
       </div>
-
 
     </div> <!-- / enemy-army -->
 
