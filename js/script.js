@@ -134,13 +134,13 @@ rampart.addCreature( "Боевой единорог",   6, 18, 22, 15, 14, 110, 
 rampart.addCreature( "Зелёный дракон",    7, 40, 50, 18, 18, 180, 10, 1,  2400, '1 кристалл' );
 rampart.addCreature( "Золотой дракон",    7, 40, 50, 27, 27, 250, 16, 1,  4000, '2 кристалл' );
 
-var calculateDamage = function( baseDmg ){
-  var 
+var calculateDamage = function( baseDmg, oursNum){
+
       // количество атакующих существ
-      oursNum   = $('#player-creature-number').val(),    
-      // количество защищающихся существ
-      theirsNum = $('#enemy-creature-number').val();
-  
+      if ( isNaN(oursNum * 1) ) {
+        var oursNum   = $('#player-creature-number').val();
+      }
+
       // baseDmg -  базовый урон существа
                
       // условный множитель урона 
@@ -158,7 +158,7 @@ var calculateDamage = function( baseDmg ){
       // MD(баз) = (Атака - Защита) * 0,025 
       var modDmg = ( attacker.attack - defenser.defense ) * multDmg;
       
-      // допустимый промежуток для модификатора: -70%-300% урона
+      // допустимый промежуток для модификатора: [-70%, 300%] урона
       if ( modDmg > 3 ) { 
           modDmg = 3;
       } else if ( modDmg < -0.7 ) { 
@@ -180,25 +180,64 @@ var calculateDamage = function( baseDmg ){
 
 }
 
+// рассчитывает, сколько существ нужно, чтобы убить одним ударом
+var calculateKill = function(){
+  var 
+      // количество атакующих существ
+      oursNum   = $('#player-creature-number').val(),    
+      // количество защищающихся существ
+      theirsNum = $('#enemy-creature-number').val(),
+      dmg = {
+        min: calculateDamage(attacker.damageMin, 1).totalDmg,
+        max: calculateDamage(attacker.damageMax, 1).totalDmg
+      },
+      needToKill = {
+        min: defenser.health * theirsNum / dmg.min,
+        max: defenser.health * theirsNum / dmg.max
+      };
+    return needToKill;
+}
+
+// рассчитывает, сколько здоровья останется после удара
+var calculateHealthLeft = function(){
+  var dmg = {
+        min: calculateDamage(attacker.damageMin).totalDmg,
+        max: calculateDamage(attacker.damageMax).totalDmg
+      },
+      healthLeft = {
+        min: defenser.health - dmg.min,
+        max: defenser.health - dmg.max,
+      }
+  if ( healthLeft.min < 0 ) { healthLeft.min = 0 }
+  if ( healthLeft.max < 0 ) { healthLeft.max = 0 }
+  return healthLeft;
+}
+
+
 var printDamage = function() {
-  var min = calculateDamage(attacker.damageMin)
-      max  = calculateDamage(attacker.damageMax)
-  $('#calc-damage-base').html( min.baseDmg + '-' + max.baseDmg );
-  $('#calc-damage-mod').html( Math.round(min.modDmg) + '%' );
-  $('#calc-damage-total').html( Math.round(min.totalDmg) + '-' + Math.round(max.totalDmg) );
+  if ( calculateDamage(attacker.damageMin) != NaN )  {
+    var min = calculateDamage(attacker.damageMin),
+        max  = calculateDamage(attacker.damageMax),
+        kill = calculateKill(),
+        health = calculateHealthLeft();
+    $('#calc-damage-base').html( min.baseDmg + '-' + max.baseDmg );
+    $('#calc-damage-mod').html( Math.round(min.modDmg) + '%' );
+    $('#calc-damage-total').html( Math.round(min.totalDmg) + '-' + Math.round(max.totalDmg) );
+    $('#calc-health-left').html( Math.round(health.max) + '-' + Math.round(health.min)  );
+    $('#calc-kill').html( Math.floor(kill.max) + '-' + Math.floor(kill.min)  );
+  }
 }
 
 $('#player-creature-number').on('input', printDamage);
+$('#enemy-creature-number').on('input', printDamage);
 
 $(function () {
   cities.print()
   $('#player-cities>li:nth(0)>a').click();
-  $('#player-creatures>li:nth(0)>a').click();
+  $('#player-creatures>li:nth(6)>a').click();
   $('#player-creature-number').val(1);
 
   $('#enemy-cities>li:nth(0)>a').click();
   $('#enemy-creatures>li:nth(13)>a').click();
   $('#enemy-creature-number').val(2);
-
-  printDamage();
 });
