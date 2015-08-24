@@ -1,5 +1,3 @@
-var cities = new CityList();
-
 var calculate = new Calculate();
 var battle =  new Battlefield();
 

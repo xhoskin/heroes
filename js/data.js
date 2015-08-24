@@ -2,14 +2,16 @@
 // == Города
 // ------------------------------------------------------------
 
-castle     = new City("Замок");
-rampart    = new City("Оплот");
-necropolis = new City("Некрополис");
-dungeon    = new City("Темница");
-fortress   = new City("Крепость");
-stronghold = new City("Цитадель ");
-fortress   = new City("Крепость");
-conflux    = new City("Сопряжение");
+var cities = new CityList();
+
+castle     = new City("Замок",      cities);
+rampart    = new City("Оплот",      cities);
+necropolis = new City("Некрополис", cities);
+dungeon    = new City("Темница",    cities);
+fortress   = new City("Крепость",   cities);
+stronghold = new City("Цитадель ",  cities);
+fortress   = new City("Крепость",   cities);
+conflux    = new City("Сопряжение", cities);
 
 //
 // == Существа

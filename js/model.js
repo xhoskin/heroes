@@ -47,9 +47,9 @@ Creature.prototype.print = function(army) {
 
 function City( name, list ) {
     //properties
-    this.name      = name,
+    this.name      = name;
     this.list      = [];
-    cities.add( this );
+    list.add( this );
 }
 
 
@@ -87,7 +87,7 @@ City.prototype.addCreature = function( name, level, damageMin, damageMax, attack
 // ------------------------------------------------------------
 
 function CityList() {
-    this.list = [],
+    this.list = [];
 }
 
 // добавить город в список
