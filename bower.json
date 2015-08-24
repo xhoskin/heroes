@@ -1,0 +1,18 @@
+{
+  "name": "heroes",
+  "version": "0.0.1",
+  "homepage": "https://github.com/xhoskin/heroes",
+  "authors": [
+    "xhoskin <xhoskin@gmail.com>"
+  ],
+  "description": "Damage calculator for Heroes of Might and Magic 3",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
