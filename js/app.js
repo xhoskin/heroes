@@ -2,7 +2,7 @@
 // == Существo
 // ------------------------------------------------------------
 
-function Creature( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice, city ) {
+function Creature( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice ) {
     //properties
     this.name          = name,
     this.level         = level,
@@ -14,8 +14,7 @@ function Creature( name, level, damageMin, damageMax, attack, defense, health, s
     this.speed         = speed,
     this.growth        = growth,
     this.goldPrice     = goldPrice,
-    this.resourcePrice = resourcePrice,
-    this.city          = city
+    this.resourcePrice = resourcePrice
 }
 
 //методы существа
@@ -78,8 +77,8 @@ City.prototype.print = function(army){
 }
 
 //добавление существа в город
-City.prototype.addCreature = function( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice, city ){
-    this.list.push( new Creature( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice, city) );
+City.prototype.addCreature = function( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice ){
+    this.list.push( new Creature( name, level, damageMin, damageMax, attack, defense, health, speed, growth, goldPrice, resourcePrice) );
 }
 
 
