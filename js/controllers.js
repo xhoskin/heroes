@@ -32,11 +32,6 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
             enemy:  enemy,
             damage: function(baseDmg){
 
-                // количество атакующих существ
-                //if ( isNaN(player.quantity * 1) ) {
-                    //var player.quantity   = $('#player-creature-number').val();
-                //}
-
                 // baseDmg -  базовый урон существа
 
                 // условный множитель урона 
@@ -49,7 +44,7 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
 
                 // модификатор урона
                 // если атака больше, то за каждую единицу +5% урона
-                // если защита больше, то за каждую единицу +2,5% урона
+                // если защита больше, то за каждую единицу -2,5% урона
                 // МD(баз) = (Атака - Защита) * 0,05  
                 // MD(баз) = (Атака - Защита) * 0,025 
                 var modDmg = ( player.monster.attack - enemy.monster.defense ) * multDmg;
@@ -80,8 +75,7 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
                 return this.damage(this.player.monster.damageMax);
             },
             // базовый урон, который наносит 1 юнит
-            unitDmg:    function(){
-                var unit = this.player.monster;
+            unitDmg:    function(unit){
                 return $scope.range( unit.damageMin, unit.damageMax );
             },
             // базовый урон, который наносит весь стек

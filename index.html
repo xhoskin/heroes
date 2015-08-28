@@ -1,86 +1,126 @@
 <!DOCTYPE html>
 <html ng-app="heroesApp">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <title></title>
-        <style>
-            .creature-stats .unimportant { display: none; }
-            .calc-group { margin-bottom: 10px; }
-            .calc-value { font-weight: bold; }
-            .calc-value small { font-size: 1em; font-weight: normal; }
-        </style>
-    </head>
-    <body ng-cloak>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/style.css">
+<title></title>
+</head>
+<body ng-cloak>
 
-        <div class="battlefield" ng-controller="monstersListCtrl">
+<div class="battlefield" ng-controller="monstersListCtrl">
 
-            <div class="player-army army">
+    <ul class="creatures-list">
+        <li ng-repeat="cityname in cities track by $index">
+            <div>{{ cityname }} </div>
+            <ul>
+                <li ng-repeat="monster in monsters | filter:{'city':$index}">
+                    <a href="" ng-click="player.setMonster(monster)">{{ monster.name }}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
-                <ul id="player-creatures" class="creatures-list">
-                    <li ng-repeat="cityname in cities track by $index">
-                        <div>{{ cityname }} </div>
-                        <ul>
-                            <li ng-repeat="monster in monsters | filter:{'city':$index}">
-                                <a href="" ng-click="player.setMonster(monster)">{{ monster.name }}</a>
-                            </li>
-                        </ul>
+    <div class="primary-part">
+        <div class="row">
+            <div class="player-creature creature">
+                <header class="creature-header form-horizontal">
+                    <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity"></div>
+                    <label ng-bind="player.monster.name" class="control-label creature-name"></label>
+                </header>
+                <ul class="creature-stats">
+                    <li class="unimportant">
+                        <div class="stat-label">Уровень</div>
+                        <div class="stat-value" ng-bind="player.monster.level"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Урон</div>
+                        <div class="stat-value" ng-bind="calc.unitDmg(player.monster)"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Атака</div>
+                        <div class="stat-value" ng-bind="player.monster.attack"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Защита</div>
+                        <div class="stat-value" ng-bind="player.monster.defense"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Здоровье</div>
+                        <div class="stat-value" ng-bind="player.monster.health"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Скорость</div>
+                        <div class="stat-value" ng-bind="player.monster.speed"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Прирост</div>
+                        <div class="stat-value" ng-bind="player.monster.growth"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Цена</div>
+                        <div class="stat-value" ng-bind="player.monster.price"></div>
                     </li>
                 </ul>
+            </div> <!-- / player-creature creature -->
+            
+            <div class="enemy-creature creature">
+                <header class="creature-header form-horizontal">
+                    <div class="creature-number"><input class="form-control" type="number" ng-model="enemy.quantity"></div>
+                    <label ng-bind="enemy.monster.name" class="control-label creature-name"></label>
+                </header>
+                <ul class="creature-stats">
+                    <li class="unimportant">
+                        <div class="stat-label">Уровень</div>
+                        <div class="stat-value" ng-bind="enemy.monster.level"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Урон</div>
+                        <div class="stat-value" ng-bind="calc.unitDmg(player.monster)"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Атака</div>
+                        <div class="stat-value" ng-bind="enemy.monster.attack"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Защита</div>
+                        <div class="stat-value" ng-bind="enemy.monster.defense"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Здоровье</div>
+                        <div class="stat-value" ng-bind="enemy.monster.health"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Скорость</div>
+                        <div class="stat-value" ng-bind="enemy.monster.speed"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Прирост</div>
+                        <div class="stat-value" ng-bind="enemy.monster.growth"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Цена</div>
+                        <div class="stat-value" ng-bind="enemy.monster.price"></div>
+                    </li>
+                </ul>
+            </div>
 
-                <div id="player-creature" class="player-creature creature">
-                    <header class="creature-name">
-                        <span ng-bind="player.monster.name" class="stat-label form-label"></span>
-                        <span class="stat-value"><input class="creature-number form-control" type="number" ng-model="player.quantity"></span>
-                    </header>
-                    <ul class="creature-stats">
-                        <li class="unimportant">
-                            <div class="stat-label">Уровень</div>
-                            <div class="stat-value" ng-bind="player.monster.level"></div>
-                        </li>
-                        <li>
-                            <div class="stat-label">Урон</div>
-                            <div class="stat-value" ng-bind="calc.unitDmg()"></div>
-                        </li>
-                        <li>
-                            <div class="stat-label">Атака</div>
-                            <div class="stat-value" ng-bind="player.monster.attack"></div>
-                        </li>
-                        <li>
-                            <div class="stat-label">Защита</div>
-                            <div class="stat-value" ng-bind="player.monster.defense"></div>
-                        </li>
-                        <li>
-                            <div class="stat-label">Здоровье</div>
-                            <div class="stat-value" ng-bind="player.monster.health"></div>
-                        </li>
-                        <li class="unimportant">
-                            <div class="stat-label">Скорость</div>
-                            <div class="stat-value" ng-bind="player.monster.speed"></div>
-                        </li>
-                        <li class="unimportant">
-                            <div class="stat-label">Прирост</div>
-                            <div class="stat-value" ng-bind="player.monster.growth"></div>
-                        </li>
-                        <li class="unimportant">
-                            <div class="stat-label">Цена</div>
-                            <div class="stat-value" ng-bind="player.monster.price"></div>
-                        </li>
-                    </ul>
-                </div>
-
-            </div> <!-- / player-army -->
-
+        </div> <!-- / row -->
+        <div class="row">
             <div class="calculation">
                 <h3>Вычисления</h3>
 
                 <div class="calc-group">
-                    Базовый
+                    Нужно <strong ng-bind="calc.needToKill()"></strong> <span ng-bind="player.monster.name"></span> </br>
+                    чтобы убить <strong ng-bind="enemy.quantity"></strong> <span ng-bind="enemy.monster.name"></span>
+                </div>
+
+                <div class="calc-group">
+                    Базовый урон: 
                     <div class="calc-value" ng-bind="calc.stackDmg()"></div>
                 </div>
 
                 <div class="calc-group">
-                    Полный
+                    Полный урон: 
                     <div class="calc-value">
                         <span ng-bind="calc.totalDmg()"></span>
                         <small>(<span ng-bind="calc.modDmg()"></span>)</small>
@@ -94,85 +134,37 @@
                     </div>
                 </div>
 
-                <div class="calc-group">
-                    Нужно <strong ng-bind="calc.needToKill()"></strong> <span ng-bind="player.monster.name"></span> </br>
-                    чтобы убить <strong ng-bind="enemy.quantity"></strong> <span ng-bind="enemy.monster.name"></span>
-                    </div>
+            </div> <!-- calculation -->
+        </div>
+    </div> <!-- / primary-part -->
 
-                </div>
+    <ul id="enemy-creatures" class="creatures-list">
+        <li ng-repeat="cityname in cities track by $index">
+            <div>{{ cityname }} </div>
+            <ul>
+                <li ng-repeat="monster in monsters | filter:{'city':$index}">
+                    <a href="" ng-click="enemy.setMonster(monster)">{{ monster.name }}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
-                <div class="enemy-army army">
+</div> <!-- /battlefield -->
 
-                    <ul id="enemy-creatures" class="creatures-list">
-                        <li ng-repeat="cityname in cities track by $index">
-                            <div>{{ cityname }} </div>
-                            <ul>
-                                <li ng-repeat="monster in monsters | filter:{'city':$index}">
-                                    <a href="" ng-click="enemy.setMonster(monster)">{{ monster.name }}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+<!--
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+-->
 
-                    <div id="enemy-creature" class="creature">
-                        <header class="creature-name" >
-                            <span ng-bind="enemy.monster.name" class="stat-label form-label"></span>
-                            <span class="stat-value"><input id="enemy-creature-number" class="creature-number form-control" type="number" ng-model="enemy.quantity"></span>
-                        </header>
-                        <ul class="creature-stats">
-                            <li class="unimportant">
-                                <div class="stat-label">Уровень</div>
-                                <div class="stat-value" ng-bind="enemy.monster.level"></div>
-                            </li>
-                            <li>
-                                <div class="stat-label">Урон</div>
-                                <div class="stat-value" ng-bind="enemy.unitDmg()"></div>
-                            </li>
-                            <li>
-                                <div class="stat-label">Атака</div>
-                                <div class="stat-value" ng-bind="enemy.monster.attack"></div>
-                            </li>
-                            <li>
-                                <div class="stat-label">Защита</div>
-                                <div class="stat-value" ng-bind="enemy.monster.defense"></div>
-                            </li>
-                            <li>
-                                <div class="stat-label">Здоровье</div>
-                                <div class="stat-value" ng-bind="enemy.monster.health"></div>
-                            </li>
-                            <li class="unimportant">
-                                <div class="stat-label">Скорость</div>
-                                <div class="stat-value" ng-bind="enemy.monster.speed"></div>
-                            </li>
-                            <li class="unimportant">
-                                <div class="stat-label">Прирост</div>
-                                <div class="stat-value" ng-bind="enemy.monster.growth"></div>
-                            </li>
-                            <li class="unimportant">
-                                <div class="stat-label">Цена</div>
-                                <div class="stat-value" ng-bind="enemy.monster.price"></div>
-                            </li>
-                        </ul>
-                    </div>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 
-                </div> <!-- / enemy-army -->
+<script src="js/controllers.js"></script>
 
-            </div> <!-- /battlefield -->
+<!--
+<script src="js/model.js"></script>
+<script src="js/data.js"></script>
+<script src="js/controller.js"></script>
+-->
 
-            <!--
-            <script src="bower_components/jquery/dist/jquery.min.js"></script>
-            -->
-
-            <script src="bower_components/angular/angular.min.js"></script>
-            <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-
-            <script src="js/controllers.js"></script>
-
-            <!--
-            <script src="js/model.js"></script>
-            <script src="js/data.js"></script>
-            <script src="js/controller.js"></script>
-            -->
-
-        </body>
-    </html>
+</body>
+</html>
