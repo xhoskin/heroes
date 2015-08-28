@@ -11,7 +11,7 @@
     .calc-value small { font-size: 1em; font-weight: normal; }
   </style>
 </head>
-<body>
+<body ng-cloak>
   
   <div class="battlefield" ng-controller="monstersListCtrl">
 
@@ -31,7 +31,7 @@
       <div id="player-creature" class="player-creature creature">
         <header class="creature-name">
           <span ng-bind="player.monster.name" class="stat-label form-label"></span>
-          <span class="stat-value"><input id="player-creature-number" class="creature-number form-control" type="number" name=""></span>
+          <span class="stat-value"><input class="creature-number form-control" type="number" name="" ng-model="player.quantity"></span>
         </header>
         <ul class="creature-stats">
           <li class="unimportant">
@@ -40,7 +40,7 @@
           </li>
           <li>
           <div class="stat-label">Урон</div>
-          <div class="stat-value" ng-bind="player.damage()"></div>
+          <div class="stat-value" ng-bind="player.unitDmg()"></div>
           </li>
           <li>
           <div class="stat-label">Атака</div>
@@ -76,7 +76,7 @@
       
         <div class="calc-group">
           Базовый
-          <div class="calc-value" id="calc-damage-base"></div>
+          <div class="calc-value" ng-bind="player.stackDmg()"></div>
         </div>
 
         <div class="calc-group">
@@ -128,7 +128,7 @@
           </li>
           <li>
           <div class="stat-label">Урон</div>
-          <div class="stat-value" ng-bind="enemy.damage()"></div>
+          <div class="stat-value" ng-bind="enemy.unitDmg()"></div>
           </li>
           <li>
           <div class="stat-label">Атака</div>
