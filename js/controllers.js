@@ -20,25 +20,17 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
         return {
             monster:    monster,
             quantity:   1,
-            // базовый урон, который наносит 1 юнит
-            unitDmg:    function(){
-                var unit = this.monster;
-                return $scope.range( unit.damageMin, unit.damageMax );
-            },
-            // базовый урон, который наносит весь стек
-            stackDmg:   function(){
-                var unit = this.monster;
-                return $scope.range( unit.damageMin * this.quantity , unit.damageMax * this.quantity );
-            },
             setMonster: function(monster) {
                 this.monster = monster;
             }
         }
     }
 
-    $scope.Calculator = function(){
+    $scope.Calculator = function( player, enemy ){
         return {
-            damage: function(){
+            player: player,
+            enemy:  enemy,
+            damage: function(baseDmg){
 
                 // количество атакующих существ
                 //if ( isNaN(player.quantity * 1) ) {
@@ -46,11 +38,10 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
                 //}
 
                 // baseDmg -  базовый урон существа
-                var baseDmg = $scope.player.monster.damage;
 
                 // условный множитель урона 
                 // зависит от того, больше или меньше атака и защита
-                if ( $scope.player.monster.attack >= $scope.enemy.monster.defense ) {
+                if ( player.monster.attack >= enemy.monster.defense ) {
                     var multDmg = 0.05;
                 } else {
                     var multDmg = 0.025;
@@ -61,7 +52,7 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
                 // если защита больше, то за каждую единицу +2,5% урона
                 // МD(баз) = (Атака - Защита) * 0,05  
                 // MD(баз) = (Атака - Защита) * 0,025 
-                var modDmg = ( $scope.player.monster.attack - $scope.enemy.monster.defense ) * multDmg;
+                var modDmg = ( player.monster.attack - enemy.monster.defense ) * multDmg;
 
                 // допустимый промежуток для модификатора: [-70%, 300%] урона
                 if ( modDmg > 3 ) { 
@@ -74,56 +65,57 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
                 var modifiedDmg = baseDmg * modDmg;
 
                 // итоговая формула урона
-                var totalDmg = (modifiedDmg + baseDmg) * $scope.player.quantity;
-                var totalDmgRounded = Math.round( (modifiedDmg + baseDmg) * player.quantity );
+                var totalDmg = (modifiedDmg + baseDmg) * player.quantity;
 
                 return {
-                    baseDmg:  baseDmg * $scope.player.quantity,
-                        modDmg:   ( modDmg * 100 ),
-                        totalDmg: totalDmg
+                    baseDmg:  baseDmg * player.quantity,
+                    totalDmg: totalDmg,
+                    modDmg:   ( modDmg * 100 )
                 }
             },
-            /*
-            kill: function(){
-                var calc = this;
-
-                // количество атакующих существ
-                var oursNum   = $('#player-creature-number').val();
-
-                // количество защищающихся существ
-                var theirsNum = $('#enemy-creature-number').val();
-
-                var dmg = {
-                    min: calc.damage(battle.attacker.damageMin, 1).totalDmg,
-                    max: calc.damage(battle.attacker.damageMax, 1).totalDmg
+            min: function(){
+                return this.damage(this.player.monster.damageMin);
+            },
+            max: function(){
+                return this.damage(this.player.monster.damageMax);
+            },
+            // базовый урон, который наносит 1 юнит
+            unitDmg:    function(){
+                var unit = this.player.monster;
+                return $scope.range( unit.damageMin, unit.damageMax );
+            },
+            // базовый урон, который наносит весь стек
+            stackDmg:   function(){
+                return $scope.range( Math.round(this.min().baseDmg), Math.round(this.max().baseDmg) );
+            },
+            // полный урон, с учетом модификаторов
+            totalDmg:   function(){
+                return $scope.range( Math.round(this.min().totalDmg), Math.round(this.max().totalDmg) );
+            },
+            // модификатор урона - на сколько процентов увеличится или уменьшится
+            modDmg:     function(){
+                return Math.round( this.min().modDmg );
+            },
+            needToKill: function(){
+                var stackHealth = this.enemy.monster.health * this.enemy.quantity;
+                var kill = {
+                    min: stackHealth / ( this.min().totalDmg / this.player.quantity ),
+                    max: stackHealth / ( this.max().totalDmg / this.player.quantity ),
                 };
-
-                var needToKill = {
-                    min: battle.defenser.health * theirsNum / dmg.min,
-                    max: battle.defenser.health * theirsNum / dmg.max
-                };
-
-                return needToKill;
+                return $scope.range( Math.floor(kill.max), Math.floor(kill.min) );
             },
             healthLeft: function(){
-                var calc = this;
-
-                var dmg = {
-                    min: calc.damage(battle.attacker.damageMin).totalDmg,
-                    max: calc.damage(battle.attacker.damageMax).totalDmg
-                }
-
+                var stackHealth = this.enemy.monster.health * this.enemy.quantity;
                 var healthLeft = {
-                    min: battle.defenser.health - dmg.min,
-                    max: battle.defenser.health - dmg.max,
+                    min: stackHealth - this.min().totalDmg,
+                    max: stackHealth - this.max().totalDmg,
                 }
 
                 if ( healthLeft.min < 0 ) { healthLeft.min = 0 }
                 if ( healthLeft.max < 0 ) { healthLeft.max = 0 }
 
-                return healthLeft;
+                return $scope.range( Math.floor(healthLeft.max), Math.floor(healthLeft.min) );
             }
-            */
         }
     }
 
@@ -132,7 +124,7 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
         $scope.player = $scope.BattleSide(data[0]);
         $scope.enemy = $scope.BattleSide(data[0]);
 
-        //$scope.calc = $scope.Calculator();
+        $scope.calc = $scope.Calculator( $scope.player, $scope.enemy );
     });
 
 }]);
