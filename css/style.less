@@ -13,7 +13,7 @@
     .make-xs-column(12); 
 }
 
-.creatures-list {
+.creatures-selector {
     .make-xs-column(2);
 }
 
@@ -42,9 +42,20 @@
 }
 
 .creatures-list {
-    .list-unstyled;
     padding-left: @grid-pad;
     padding-top: @grid-pad; 
+}
+
+.creatures-selector ul {
+    .list-unstyled;
+}
+
+.creature {
+    margin-bottom: @grid-pad;
+}
+
+.city-item { 
+    margin-bottom: 8px;
 }
 
 // ** параметры существ
@@ -56,7 +67,7 @@
 
 .creature-name {
     font-weight: bold; 
-    margin-right: 60px + @grid-pad;
+    margin-right: 80px + @grid-pad;
 
     &.control-label {
         display: block;
@@ -64,13 +75,13 @@
     }
 }
 
-.stat-value {
-    text-align: right;
-}
-
 .creature-number {
     float: right;
-    width: 60px;
+    width: 80px;
+}
+
+.stat-value {
+    text-align: right;
 }
 
 .creature-stats {
@@ -91,10 +102,6 @@
 
 .creature-stats .unimportant {
     display: none; 
-}
-
-.calculation {
-    margin-top: @grid-pad;
 }
 
 .calc-value {

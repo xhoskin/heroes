@@ -10,16 +10,19 @@
 
 <div class="battlefield" ng-controller="monstersListCtrl">
 
-    <ul class="creatures-list">
-        <li ng-repeat="cityname in cities track by $index">
-            <div>{{ cityname }} </div>
-            <ul>
-                <li ng-repeat="monster in monsters | filter:{'city':$index}">
-                    <a href="" ng-click="player.setMonster(monster)">{{ monster.name }}</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <div class="creatures-selector">
+        <input class="form-control" type="text" ng-model="playerMonsterFilter">
+        <ul class="creatures-list">
+            <li class="city-item" ng-repeat="cityname in cities track by $index">
+                <div>{{ cityname }} </div>
+                <ul>
+                    <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}">
+                        <a href="" ng-click="player.setMonster(monster)">{{ monster.name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
     <div class="primary-part">
         <div class="row">
@@ -134,16 +137,19 @@
         </div>
     </div> <!-- / primary-part -->
 
-    <ul id="enemy-creatures" class="creatures-list">
-        <li ng-repeat="cityname in cities track by $index">
-            <div>{{ cityname }} </div>
-            <ul>
-                <li ng-repeat="monster in monsters | filter:{'city':$index}">
-                    <a href="" ng-click="enemy.setMonster(monster)">{{ monster.name }}</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <div class="creatures-selector">
+        <input class="form-control" type="text" ng-model="enemyMonsterFilter">
+        <ul class="creatures-list">
+            <li class="city-item" ng-repeat="cityname in cities track by $index">
+                <div>{{ cityname }} </div>
+                <ul>
+                    <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':enemyMonsterFilter}">
+                        <a href="" ng-click="enemy.setMonster(monster)">{{ monster.name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
 </div> <!-- /battlefield -->
 

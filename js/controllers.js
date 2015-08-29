@@ -90,25 +90,19 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
             modDmg:     function(){
                 return Math.round( this.min().modDmg );
             },
+            // кол-во существ, чтобы убить одним ударом
             needToKill: function(){
                 var stackHealth = this.enemy.monster.health * this.enemy.quantity;
                 var kill = {
-                    min: stackHealth / ( this.min().totalDmg / this.player.quantity ),
-                    max: stackHealth / ( this.max().totalDmg / this.player.quantity ),
+                    min: Math.floor( stackHealth / ( this.min().totalDmg / this.player.quantity ) ),
+                    max: Math.floor( stackHealth / ( this.max().totalDmg / this.player.quantity ) ),
                 };
-                return $scope.range( Math.floor(kill.max), Math.floor(kill.min) );
+                return $scope.range( 
+                    kill.max > 1 ? kill.max : 1,
+                    kill.min > 1 ? kill.min : 1
+                );
             },
             enemiesLeft: function(){
-                /*
-                var stackHealth = this.enemy.monster.health * this.enemy.quantity;
-                var healthLeft = {
-                    min: stackHealth - this.min().totalDmg,
-                    max: stackHealth - this.max().totalDmg,
-                }
-
-                if ( healthLeft.min < 0 ) { healthLeft.min = 0 }
-                if ( healthLeft.max < 0 ) { healthLeft.max = 0 }
-                */
 
                 var stackHealth = this.enemy.monster.health * this.enemy.quantity;
                 var healthLeft = {
