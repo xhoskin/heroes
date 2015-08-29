@@ -2,6 +2,7 @@
 <html ng-app="heroesApp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <title></title>
 </head>
@@ -22,6 +23,13 @@
 
     <div class="primary-part">
         <div class="row">
+            <div class="calculation">
+                <div class="well">
+                    Нужно <strong ng-bind="calc.needToKill()"></strong> <span ng-bind="player.monster.name"></span> 
+                    чтобы убить <strong ng-bind="enemy.quantity"></strong> <span ng-bind="enemy.monster.name"></span>
+                    одним ударом, не получив ответный
+                </div>
+            </div>
             <div class="player-creature creature">
                 <header class="creature-header form-horizontal">
                     <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity"></div>
@@ -107,33 +115,21 @@
         </div> <!-- / row -->
         <div class="row">
             <div class="calculation">
-                <h3>Вычисления</h3>
+                <div class="well">
+                        Мы нанесем урон 
+                        <span class="calc-value">
+                            <span ng-bind="calc.totalDmg()"></span>
+                            <small>(<span ng-bind="calc.modDmg()"></span>)</small>
+                        </span>
+                        <br>
+                        <strong ng-bind="calc.enemiesLeft()"></strong> <span ng-bind="enemy.monster.name"></span> останутся в живых
 
-                <div class="calc-group">
-                    Нужно <strong ng-bind="calc.needToKill()"></strong> <span ng-bind="player.monster.name"></span> </br>
-                    чтобы убить <strong ng-bind="enemy.quantity"></strong> <span ng-bind="enemy.monster.name"></span>
-                </div>
-
-                <div class="calc-group">
-                    Базовый урон: 
-                    <div class="calc-value" ng-bind="calc.stackDmg()"></div>
-                </div>
-
-                <div class="calc-group">
-                    Полный урон: 
-                    <div class="calc-value">
-                        <span ng-bind="calc.totalDmg()"></span>
-                        <small>(<span ng-bind="calc.modDmg()"></span>)</small>
+                    <div class="unimportant">
+                        Базовый урон: 
+                        <div class="calc-value" ng-bind="calc.stackDmg()"></div>
                     </div>
-                </div>
 
-                <div class="calc-group">
-                    Останется здоровья
-                    <div class="calc-value">
-                        <span ng-bind="calc.healthLeft()"></span>
-                    </div>
-                </div>
-
+                </div> <!-- / well -->
             </div> <!-- calculation -->
         </div>
     </div> <!-- / primary-part -->
@@ -165,6 +161,8 @@
 <script src="js/data.js"></script>
 <script src="js/controller.js"></script>
 -->
+
+<script http://localhost:35728/livereload.js></script>
 
 </body>
 </html>

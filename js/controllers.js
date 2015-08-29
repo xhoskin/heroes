@@ -98,7 +98,8 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
                 };
                 return $scope.range( Math.floor(kill.max), Math.floor(kill.min) );
             },
-            healthLeft: function(){
+            enemiesLeft: function(){
+                /*
                 var stackHealth = this.enemy.monster.health * this.enemy.quantity;
                 var healthLeft = {
                     min: stackHealth - this.min().totalDmg,
@@ -107,8 +108,18 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
 
                 if ( healthLeft.min < 0 ) { healthLeft.min = 0 }
                 if ( healthLeft.max < 0 ) { healthLeft.max = 0 }
+                */
 
-                return $scope.range( Math.floor(healthLeft.max), Math.floor(healthLeft.min) );
+                var stackHealth = this.enemy.monster.health * this.enemy.quantity;
+                var healthLeft = {
+                    min: stackHealth - this.min().totalDmg,
+                    max: stackHealth - this.max().totalDmg,
+                }
+
+                return $scope.range( 
+                    healthLeft.max > 0 ? Math.floor(healthLeft.max / this.enemy.monster.health) : 0,
+                    healthLeft.min > 0 ? Math.floor(healthLeft.min / this.enemy.monster.health) : 0 
+                );
             }
         }
     }

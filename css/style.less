@@ -1,10 +1,8 @@
-@import "../bower_components/bootstrap/less/bootstrap.less";
+@import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins.less";
+@import "../bower_components/bootstrap/less/type.less";
 
 @grid-pad: @grid-gutter-width / 2;
-
-.battlefield { padding: @grid-pad 0 0;  }
-.creatures-list { .list-unstyled; padding-top: @grid-pad; }
-.creature { padding-top: @grid-pad; }
 
 // ** Сетка
 .army {
@@ -16,11 +14,11 @@
 }
 
 .creatures-list {
-    .make-xs-column(3);
+    .make-xs-column(2);
 }
 
 .primary-part {
-    .make-xs-column(6);
+    .make-xs-column(8);
 }
 
 .creature {
@@ -39,12 +37,24 @@
     .make-xs-column(12); 
 }
 
+.battlefield {
+    padding: @grid-pad 0 0;  
+}
+
+.creatures-list {
+    .list-unstyled;
+    padding-left: @grid-pad;
+    padding-top: @grid-pad; 
+}
+
 // ** параметры существ
-.creature-header { 
+.creature-header {
+
     .clearfix;
     margin-bottom: @grid-pad;
 }
-.creature-name { 
+
+.creature-name {
     font-weight: bold; 
     margin-right: 60px + @grid-pad;
 
@@ -54,7 +64,7 @@
     }
 }
 
-.stat-value { 
+.stat-value {
     text-align: right;
 }
 
@@ -63,13 +73,34 @@
     width: 60px;
 }
 
-.creature-stats { .list-unstyled; 
-  >li { .make-row(); }
-  .unimportant { display: none; }
-}
-.stat-label { font-weight: normal; color: @gray; }
+.creature-stats {
+    .list-unstyled; 
 
-.creature-stats .unimportant { display: none; }
-.calc-group { margin-bottom: 10px; }
-.calc-value { display: inline; font-weight: bold; }
-.calc-value small { font-size: 1em; font-weight: normal; }
+    >li {
+        .make-row(); 
+    }
+}
+
+.unimportant {
+    display: none; 
+}
+
+.stat-label {
+    font-weight: normal; color: @gray; 
+}
+
+.creature-stats .unimportant {
+    display: none; 
+}
+
+.calculation {
+    margin-top: @grid-pad;
+}
+
+.calc-value {
+    display: inline; font-weight: bold; 
+}
+
+.calc-value small {
+    font-size: 1em; font-weight: normal; 
+}
