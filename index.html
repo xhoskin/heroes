@@ -13,7 +13,7 @@
     <div class="creatures-selector">
         <input class="form-control" type="text" ng-model="playerMonsterFilter">
         <ul class="creatures-list">
-            <li class="city-item" ng-repeat="cityname in cities track by $index">
+            <li class="city-item" ng-repeat="cityname in cities track by $index" ng-show="(monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}).length">
                 <div>{{ cityname }} </div>
                 <ul>
                     <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}">
@@ -122,7 +122,9 @@
                         Мы нанесем урон 
                         <span class="calc-value">
                             <span ng-bind="calc.totalDmg()"></span>
-                            <small>(<span ng-bind="calc.modDmg()"></span>)</small>
+                            <span class="mod-status" ng-class="modStatusClass(calc.modDmg())">
+                                (<span ng-bind="modStatusPos(calc.modDmg())"></span><span ng-bind="calc.modDmg()"></span>%)
+                            </span>
                         </span>
                         <br>
                         <strong ng-bind="calc.enemiesLeft()"></strong> <span ng-bind="enemy.monster.name"></span> останутся в живых

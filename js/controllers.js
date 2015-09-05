@@ -16,6 +16,20 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
         return min === max ? min : min + '-' + max
     }
 
+    $scope.modStatusClass = function(val) {
+        if ( val === 0 ) {
+            return 'hidden';
+        } else if ( val > 0 ) {
+            return 'text-success';
+        } else {
+            return 'text-danger';
+        }
+    }
+
+    $scope.modStatusPos = function(val) {
+        return ( val > 0 ) ? '+' : '';
+    }
+
     $scope.BattleSide = function(monster){
         return {
             monster:    monster,
