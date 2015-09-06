@@ -103,7 +103,7 @@ h3,
 }
 h4,
 .h4 {
-  font-size: 18px;
+  font-size: 16px;
 }
 h5,
 .h5 {
@@ -354,8 +354,17 @@ address {
   font-style: normal;
   line-height: 1.42857143;
 }
+h4,
+.h4 {
+  font-weight: bold;
+}
+html,
 body {
-  background: url("/images/hd_frame_fill.bmp") repeat 0 0;
+  width: 100%;
+  height: 100%;
+}
+body {
+  background: url("/images/bg.jpg") repeat 0 0;
 }
 .row {
   margin-left: -10px;
@@ -369,6 +378,7 @@ body {
   border: 1px solid #ccc;
   border-width: 0 1px;
   background: #fff;
+  min-height: 100%;
 }
 .army {
   position: relative;
@@ -498,4 +508,26 @@ body {
 }
 .mod-status {
   font-weight: bold;
+}
+.selector-title {
+  margin-bottom: 12px;
+  margin-top: 0;
+  font-weight: bold;
+  line-height: 1.1em;
+}
+.stats-title {
+  border-bottom: 1px solid #e3e3e3;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  margin-top: 0;
+  font-weight: bold;
+  line-height: 1.1em;
+}
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
 }

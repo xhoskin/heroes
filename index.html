@@ -6,12 +6,13 @@
 <link rel="stylesheet" href="css/style.css">
 <title></title>
 </head>
-<body ng-cloak>
+<body>
 
-<div class="battlefield" ng-controller="monstersListCtrl">
+<div class="battlefield" ng-controller="monstersListCtrl" ng-cloak>
     <div class="row">
         <div class="creatures-selector">
-            <input class="form-control" type="text" ng-model="playerMonsterFilter">
+            <div class="selector-title">Выберите своего монстра:</div>
+            <input class="form-control" type="text" ng-model="playerMonsterFilter" placeholder="Фильтр">
             <ul class="creatures-list">
                 <li class="city-item" ng-repeat="cityname in cities track by $index" ng-show="(monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}).length">
                     <div>{{ cityname }} </div>
@@ -34,6 +35,7 @@
                     </div>
                 </div>
                 <div class="player-creature creature">
+                    <div class="stats-title">Наши:</div>
                     <header class="creature-header form-horizontal">
                         <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity"></div>
                         <label ng-bind="player.monster.name" class="control-label creature-name"></label>
@@ -75,6 +77,7 @@
                 </div> <!-- / player-creature creature -->
                 
                 <div class="enemy-creature creature">
+                    <div class="stats-title">Враги:</div>
                     <header class="creature-header form-horizontal">
                         <div class="creature-number"><input class="form-control" type="number" ng-model="enemy.quantity"></div>
                         <label ng-bind="enemy.monster.name" class="control-label creature-name"></label>
@@ -140,7 +143,8 @@
         </div> <!-- / primary-part -->
 
         <div class="creatures-selector">
-            <input class="form-control" type="text" ng-model="enemyMonsterFilter">
+            <div class="selector-title">Выберите <br> врага:</div>
+            <input class="form-control" type="text" ng-model="enemyMonsterFilter" placeholder="Фильтр">
             <ul class="creatures-list">
                 <li class="city-item" ng-repeat="cityname in cities track by $index">
                     <div>{{ cityname }} </div>

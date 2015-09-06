@@ -135,7 +135,7 @@ heroesApp.controller('monstersListCtrl', ['$scope', '$http', function($scope, $h
     $http.get('data/monsters.json').success(function(data, status, headers, config){
         $scope.monsters = data;
         $scope.player = $scope.BattleSide(data[0]);
-        $scope.enemy = $scope.BattleSide(data[0]);
+        $scope.enemy = $scope.BattleSide(data[27]);
 
         $scope.calc = $scope.Calculator( $scope.player, $scope.enemy );
     });
