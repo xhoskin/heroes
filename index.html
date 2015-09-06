@@ -37,7 +37,7 @@
                 <div class="player-creature creature">
                     <div class="stats-title">Наши:</div>
                     <header class="creature-header form-horizontal">
-                        <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity"></div>
+                        <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity" min="1"></div>
                         <label ng-bind="player.monster.name" class="control-label creature-name"></label>
                     </header>
                     <ul class="creature-stats">
@@ -79,7 +79,7 @@
                 <div class="enemy-creature creature">
                     <div class="stats-title">Враги:</div>
                     <header class="creature-header form-horizontal">
-                        <div class="creature-number"><input class="form-control" type="number" ng-model="enemy.quantity"></div>
+                        <div class="creature-number"><input class="form-control" type="number" ng-model="enemy.quantity" min="1"></div>
                         <label ng-bind="enemy.monster.name" class="control-label creature-name"></label>
                     </header>
                     <ul class="creature-stats">
