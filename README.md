@@ -1,5 +1,5 @@
 ## Что это такое?</h3>
-Это калькулятор повреждений [Heroes of Might and Magic 3](https://ru.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III)
+Это калькулятор повреждений [Heroes of Might and Magic 3](https://ru.wikipedia.org/wiki/Heroes_of_Might_and_Magic_III).
 Он знает формулы боевой модели этой великой игры и может рассчитать:
 
 * разброс вероятного урона, который нанесет стек существ;
