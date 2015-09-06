@@ -15,18 +15,18 @@ module.exports = function(grunt) {
             options: {
                 compress: true,
                 cleancss: false,
-                sourceMap: true,
+                sourceMap: false,
                 sourceMapBasepath: '/',       
             },
             main: {
                 options: {
                     sourceMapFilename: '<%= dirs.css.webPath %>style.css.map', 
+                    compress: false,
                 },
                 files: {
                     "<%= dirs.css %>style.css":     "<%= dirs.css %>style.less",
                 }
             },
-            /*
             bootstrap: {
                 options: {
                     sourceMapFilename: '<%= dirs.css.webPath %>bootstrap.css.map', 
@@ -35,7 +35,6 @@ module.exports = function(grunt) {
                     "<%= dirs.css %>bootstrap.css":     "<%= dirs.css %>bootstrap.less",
                 }
             },
-            */
         },
         connect: {
             livereload: {
