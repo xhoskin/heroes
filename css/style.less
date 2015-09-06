@@ -1,0 +1,116 @@
+@import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins.less";
+@import "../bower_components/bootstrap/less/type.less";
+
+@grid-pad: @grid-gutter-width / 2;
+
+@brand-success: #04CC07;
+@brand-danger:  #FF1915;
+
+// ** Сетка
+.army {
+    .make-xs-column(6); 
+}
+
+.calculation {
+    .make-xs-column(12); 
+}
+
+.creatures-selector {
+    .make-xs-column(2);
+}
+
+.primary-part {
+    .make-xs-column(8);
+}
+
+.creature {
+    .make-xs-column(6); 
+}
+
+.stat-label {
+    .make-xs-column(6); 
+}
+
+.stat-value {
+    .make-xs-column(6); 
+}
+
+.calc {
+    .make-xs-column(12); 
+}
+
+.battlefield {
+    padding: @grid-pad 0 0;  
+}
+
+.creatures-list {
+    padding-left: @grid-pad;
+    padding-top: @grid-pad; 
+}
+
+.creatures-selector ul {
+    .list-unstyled;
+}
+
+.creature {
+    margin-bottom: @grid-pad;
+}
+
+.city-item { 
+    margin-bottom: 8px;
+}
+
+// ** параметры существ
+.creature-header {
+
+    .clearfix;
+    margin-bottom: @grid-pad;
+}
+
+.creature-name {
+    font-weight: bold; 
+    margin-right: 80px + @grid-pad;
+
+    &.control-label {
+        display: block;
+        text-align: left;
+    }
+}
+
+.creature-number {
+    float: right;
+    width: 80px;
+}
+
+.stat-value {
+    text-align: right;
+}
+
+.creature-stats {
+    .list-unstyled; 
+
+    >li {
+        .make-row(); 
+    }
+}
+
+.unimportant {
+    display: none; 
+}
+
+.stat-label {
+    font-weight: normal; color: @gray; 
+}
+
+.creature-stats .unimportant {
+    display: none; 
+}
+
+.calc-value {
+    display: inline; font-weight: bold; 
+}
+
+.mod-status { 
+    font-weight: bold; 
+}

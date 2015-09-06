@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="heroesApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<title></title>
+</head>
+<body ng-cloak>
+
+<div class="battlefield" ng-controller="monstersListCtrl">
+
+    <div class="creatures-selector">
+        <input class="form-control" type="text" ng-model="playerMonsterFilter">
+        <ul class="creatures-list">
+            <li class="city-item" ng-repeat="cityname in cities track by $index" ng-show="(monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}).length">
+                <div>{{ cityname }} </div>
+                <ul>
+                    <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':playerMonsterFilter}">
+                        <a href="" ng-click="player.setMonster(monster)">{{ monster.name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="primary-part">
+        <div class="row">
+            <div class="calculation">
+                <div class="well">
+                    Нужно <strong ng-bind="calc.needToKill()"></strong> <span ng-bind="player.monster.name"></span> 
+                    чтобы убить <strong ng-bind="enemy.quantity"></strong> <span ng-bind="enemy.monster.name"></span>
+                    одним ударом, не получив ответный
+                </div>
+            </div>
+            <div class="player-creature creature">
+                <header class="creature-header form-horizontal">
+                    <div class="creature-number"><input class="form-control" type="number" ng-model="player.quantity"></div>
+                    <label ng-bind="player.monster.name" class="control-label creature-name"></label>
+                </header>
+                <ul class="creature-stats">
+                    <li class="unimportant">
+                        <div class="stat-label">Уровень</div>
+                        <div class="stat-value" ng-bind="player.monster.level"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Урон</div>
+                        <div class="stat-value" ng-bind="calc.unitDmg(player.monster)"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Атака</div>
+                        <div class="stat-value" ng-bind="player.monster.attack"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Защита</div>
+                        <div class="stat-value" ng-bind="player.monster.defense"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Здоровье</div>
+                        <div class="stat-value" ng-bind="player.monster.health"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Скорость</div>
+                        <div class="stat-value" ng-bind="player.monster.speed"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Прирост</div>
+                        <div class="stat-value" ng-bind="player.monster.growth"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Цена</div>
+                        <div class="stat-value" ng-bind="player.monster.price"></div>
+                    </li>
+                </ul>
+            </div> <!-- / player-creature creature -->
+            
+            <div class="enemy-creature creature">
+                <header class="creature-header form-horizontal">
+                    <div class="creature-number"><input class="form-control" type="number" ng-model="enemy.quantity"></div>
+                    <label ng-bind="enemy.monster.name" class="control-label creature-name"></label>
+                </header>
+                <ul class="creature-stats">
+                    <li class="unimportant">
+                        <div class="stat-label">Уровень</div>
+                        <div class="stat-value" ng-bind="enemy.monster.level"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Урон</div>
+                        <div class="stat-value" ng-bind="calc.unitDmg(player.monster)"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Атака</div>
+                        <div class="stat-value" ng-bind="enemy.monster.attack"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Защита</div>
+                        <div class="stat-value" ng-bind="enemy.monster.defense"></div>
+                    </li>
+                    <li>
+                        <div class="stat-label">Здоровье</div>
+                        <div class="stat-value" ng-bind="enemy.monster.health"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Скорость</div>
+                        <div class="stat-value" ng-bind="enemy.monster.speed"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Прирост</div>
+                        <div class="stat-value" ng-bind="enemy.monster.growth"></div>
+                    </li>
+                    <li class="unimportant">
+                        <div class="stat-label">Цена</div>
+                        <div class="stat-value" ng-bind="enemy.monster.price"></div>
+                    </li>
+                </ul>
+            </div>
+
+        </div> <!-- / row -->
+        <div class="row">
+            <div class="calculation">
+                <div class="well">
+                        Мы нанесем урон 
+                        <span class="calc-value">
+                            <span ng-bind="calc.totalDmg()"></span>
+                            <span class="mod-status" ng-class="modStatusClass(calc.modDmg())">
+                                (<span ng-bind="modStatusPos(calc.modDmg())"></span><span ng-bind="calc.modDmg()"></span>%)
+                            </span>
+                        </span>
+                        <br>
+                        <strong ng-bind="calc.enemiesLeft()"></strong> <span ng-bind="enemy.monster.name"></span> останутся в живых
+
+                    <div class="unimportant">
+                        Базовый урон: 
+                        <div class="calc-value" ng-bind="calc.stackDmg()"></div>
+                    </div>
+
+                </div> <!-- / well -->
+            </div> <!-- calculation -->
+        </div>
+    </div> <!-- / primary-part -->
+
+    <div class="creatures-selector">
+        <input class="form-control" type="text" ng-model="enemyMonsterFilter">
+        <ul class="creatures-list">
+            <li class="city-item" ng-repeat="cityname in cities track by $index">
+                <div>{{ cityname }} </div>
+                <ul>
+                    <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':enemyMonsterFilter}">
+                        <a href="" ng-click="enemy.setMonster(monster)">{{ monster.name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- /battlefield -->
+
+<!--
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+-->
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+
+<script src="js/controllers.js"></script>
+
+<!--
+<script src="js/model.js"></script>
+<script src="js/data.js"></script>
+<script src="js/controller.js"></script>
+-->
+
+<script http://localhost:35728/livereload.js></script>
+
+</body>
+</html>
