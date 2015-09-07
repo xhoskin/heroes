@@ -161,7 +161,7 @@
             <div class="selector-title">Выберите <br> врага:</div>
             <input class="form-control" type="text" ng-model="enemyMonsterFilter" placeholder="Фильтр">
             <ul class="creatures-list">
-                <li class="city-item" ng-repeat="cityname in cities track by $index">
+                <li class="city-item" ng-repeat="cityname in cities track by $index" ng-show="(monsters | filter:{'city':$index} | filter:{'name':enemyMonsterFilter}).length">
                     <div>{{ cityname }} </div>
                     <ul>
                         <li ng-repeat="monster in monsters | filter:{'city':$index} | filter:{'name':enemyMonsterFilter}">
